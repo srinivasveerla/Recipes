@@ -78,6 +78,7 @@ TEMPLATES = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'http://sri-recipe-frontend.s3-website.us-east-2.amazonaws.com/',
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
