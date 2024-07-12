@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-=6z%bew$n6td&ynhu*m1w7x+ja+*gmwt37x#rew4*)8mlkjn&8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'http://18.217.108.214/',
+]
 
 
 # Application definition
@@ -73,7 +77,7 @@ TEMPLATES = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # Your frontend URL
+    'http://localhost:5173',
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
