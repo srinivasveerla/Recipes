@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class Author(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -10,6 +8,7 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
@@ -22,6 +21,7 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Step(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='steps')
@@ -37,12 +37,31 @@ class Step(models.Model):
     def __str__(self):
         return f"Step {self.step_number} for {self.recipe.name}"
 
+
+class Measurement(models.Model):
+    unit = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.unit
+
+
 class Ingredient(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients')
     name = models.CharField(max_length=255)
-    quantity = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Quantity(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='quantities')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='quantities')
+    measurement = models.ForeignKey(Measurement, on_delete=models.CASCADE, related_name='quantities')
+    quantity = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ('recipe', 'ingredient', 'measurement')
+
     def __str__(self):
-        return f"{self.quantity} of {self.name} for {self.recipe.name}"
+        return f"{self.quantity} {self.measurement} of {self.ingredient} for {self.recipe.name}"
