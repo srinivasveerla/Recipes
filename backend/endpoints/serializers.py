@@ -36,4 +36,11 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'name', 'date', 'description', 'author', 'steps', 'quantities']
+        fields = ['id', 'name', 'date', 'description', 'author', 'steps', 'quantities', 'display_picture']
+
+class RecipeListSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
+
+    class Meta:
+        model = Recipe
+        fields = ['id', 'name', 'date', 'description', 'author', 'display_picture']
